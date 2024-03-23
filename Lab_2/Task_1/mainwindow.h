@@ -9,6 +9,7 @@
 #include <QTableWidgetItem>
 #include <QDate>
 #include <QLineEdit>
+#include <QFileDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,6 +25,12 @@ public:
 
 private slots:
     void on_addDate_clicked();
+
+    void on_openfile_clicked();
+
+    bool CheckFile(QString date);
+
+    void on_savefile_clicked();
 
     void on_DateBirthdayText_userDateChanged(const QDate &date);
 
