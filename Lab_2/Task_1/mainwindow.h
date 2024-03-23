@@ -2,11 +2,16 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "date.h"
+#include <QMessageBox>
+#include <QString>
+#include <QTableWidget>
+#include <QTableWidgetItem>
+#include <QDate>
+#include <QLineEdit>
 
 QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
+namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -16,6 +21,13 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+private slots:
+    void on_addDate_clicked();
+
+    void on_DateBirthdayText_userDateChanged(const QDate &date);
+
+    void on_changeDate_clicked();
 
 private:
     Ui::MainWindow *ui;
