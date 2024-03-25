@@ -195,6 +195,24 @@ void MainWindow::on_savefile_clicked()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Сохранение"), "//", tr("Текстовые документы (*.txt)"));
     QFile file(fileName);
 
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        return;
+    }
+
+    QTextStream in(&file);
+    QStringList existingDates;
+
+    int kolvo=0;
+    while (!in.atEnd())
+    {
+        QString line = in.readLine();
+        existingDates.append(line);
+        kolvo++;
+    }
+
+    file.close();
+
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
     {
         return;
@@ -203,10 +221,20 @@ void MainWindow::on_savefile_clicked()
     QTextStream out(&file);
     int row = ui->table->rowCount();
 
+    bool уже_Есть=false;
     for (int i = 0;i< row;i++)
     {
         QTableWidgetItem *itm = new QTableWidgetItem(ui->table->item(i,0)->text());
+        for (int j=0;j<kolvo;j++){
+            if (existingDates[j]==itm->text()){
+                уже_Есть= true;
+                continue;
+            }
+        }
+        if (!уже_Есть){
         out << itm->text() << '\n';
+        }
+        уже_Есть=false;
     }
     file.close();
 }
