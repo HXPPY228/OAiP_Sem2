@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
+#include <QFileDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,6 +22,9 @@ public:
 private slots:
     void on_pushButton_add_clicked();
 
+    void on_pushButton_add_2_clicked();
+
+    bool CheckFile(QString line);
 private:
     Ui::MainWindow *ui;
 };

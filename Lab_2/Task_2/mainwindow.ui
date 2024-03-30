@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1133</width>
+    <width>1258</width>
     <height>501</height>
    </rect>
   </property>
@@ -233,7 +233,7 @@
      <rect>
       <x>450</x>
       <y>20</y>
-      <width>681</width>
+      <width>801</width>
       <height>321</height>
      </rect>
     </property>
@@ -276,6 +276,11 @@
       <string>Русский</string>
      </property>
     </column>
+    <column>
+     <property name="text">
+      <string>Сумма баллов</string>
+     </property>
+    </column>
    </widget>
    <widget class="QPushButton" name="pushButton_add">
     <property name="geometry">
@@ -290,13 +295,26 @@
      <string>Добавить</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_add_2">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>270</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Открыть</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1133</width>
+     <width>1258</width>
      <height>22</height>
     </rect>
    </property>
