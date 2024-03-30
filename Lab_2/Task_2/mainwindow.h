@@ -25,6 +25,12 @@ private slots:
     void on_pushButton_add_2_clicked();
 
     bool CheckFile(QString line);
+    void on_pushButton_save_clicked();
+
+    void on_pushButton_poisk_clicked();
+
+    void on_pushButton_poisk_2_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QChar>
+#include <QInputDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -11,6 +12,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->spinBox->setMaximum(100);
     ui->spinBox_2->setMaximum(100);
     ui->spinBox_3->setMaximum(100);
+    ui->table->setColumnWidth(0, 250);
+    ui->table->setColumnWidth(2, 71);
+    ui->table->setColumnWidth(3, 96);
+    ui->table->setColumnWidth(4, 71);
+    ui->table->setColumnWidth(5, 71);
 }
 
 MainWindow::~MainWindow()
@@ -27,6 +33,16 @@ void MainWindow::on_pushButton_add_clicked()
     bool russian=true;
     for (int i =0; i< input.length();i++){
         if (input[i].script() != QChar::Script_Cyrillic) {
+            russian=false;
+        }
+    }
+    for (int i =0; i< input2.length();i++){
+        if (input2[i].script() != QChar::Script_Cyrillic) {
+            russian=false;
+        }
+    }
+    for (int i =0; i< input3.length();i++){
+        if (input3[i].script() != QChar::Script_Cyrillic) {
             russian=false;
         }
     }
@@ -161,5 +177,99 @@ bool MainWindow::CheckFile(QString line){
     }
 
     return true;
+}
+
+
+void MainWindow::on_pushButton_save_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Сохранение"), "//", tr("Текстовые документы (*.txt)"));
+    QFile file(fileName);
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        return;
+    }
+
+    QTextStream in(&file);
+    QStringList existingVedomost;
+
+    int kolvo=0;
+    while (!in.atEnd())
+    {
+        QString line = in.readLine();
+        existingVedomost.append(line);
+        kolvo++;
+    }
+
+    file.close();
+
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
+    {
+        return;
+    }
+
+    QTextStream out(&file);
+    int row = ui->table->rowCount();
+
+    bool уже_Есть=false;
+    for (int i = 0;i< row;i++)
+    {
+        int spec=0;
+        if(ui->table->item(i,1)->text()=="ИиТП"){
+            spec=0;
+        } else if(ui->table->item(i,1)->text()=="КИ"){
+            spec=1;
+        } else if(ui->table->item(i,1)->text()=="ПИ"){
+            spec=2;
+        } else if(ui->table->item(i,1)->text()=="ПОИТ"){
+            spec=3;
+        }
+        QString ФИО =ui->table->item(i,0)->text();
+        QString спец = QString::number(spec);
+        QString оценки =  ui->table->item(i,2)->text()+ " " + ui->table->item(i,3)->text() + " " + ui->table->item(i,4)->text() + " " + ui->table->item(i,5)->text();
+        QString vedomost = ФИО + " "+ спец + " " + оценки;
+
+        for (int j=0;j<kolvo;j++){
+            if (existingVedomost[j]==vedomost){
+                уже_Есть= true;
+                continue;
+            }
+        }
+        if (!уже_Есть){
+            out << vedomost << '\n';
+        }
+        уже_Есть=false;
+    }
+    file.close();
+}
+
+void MainWindow::on_pushButton_poisk_clicked()
+{
+    bool ok;
+    QString filter = QInputDialog::getText(this, tr("Поиск"),
+                                           tr("Фамилия, Имя или Отчество:"), QLineEdit::Normal,
+                                           "", &ok);
+    if (ok && !filter.isEmpty())
+    {
+        for(int i = 0; i < ui->table->rowCount(); ++i)
+        {
+            bool match = false;
+            QTableWidgetItem *item = ui->table->item(i, 0);
+            if(item->text().contains(filter))
+            {
+                match = true;
+            }
+            ui->table->setRowHidden(i, !match);
+        }
+    }
+}
+
+
+void MainWindow::on_pushButton_poisk_2_clicked()
+{
+    for(int i = 0; i < ui->table->rowCount(); ++i)
+    {
+        ui->table->setRowHidden(i, false);
+    }
 }
 
