@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QFileDialog>
+#include "vedomosti.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -31,7 +32,11 @@ private slots:
 
     void on_pushButton_poisk_2_clicked();
 
+    void on_pushButton_sort_clicked();
+
 private:
     Ui::MainWindow *ui;
+    Vedomosti* vedomosti = new Vedomosti[100];
+    int row=0;
 };
 #endif // MAINWINDOW_H

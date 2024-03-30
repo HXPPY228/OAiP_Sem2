@@ -47,28 +47,38 @@ void MainWindow::on_pushButton_add_clicked()
         }
     }
     if (russian&&!input.isEmpty() && input.at(0).isUpper() && !input.contains(" ")&&!input2.isEmpty() && input2.at(0).isUpper() && !input2.contains(" ")&&!input3.isEmpty() && input3.at(0).isUpper() && !input3.contains(" ")) {
-        row = ui->table->rowCount();
-        ui->table->insertRow(row);
-        QTableWidgetItem *itm = new QTableWidgetItem(input +" "+ input2 +" "+ input3);
-        ui->table->setItem(row,0,itm);
+
     } else {
         QMessageBox::warning(this, "Ошибка", "Введено некорректное ФИО!");
         return;
     }
+    row = ui->table->rowCount();
+    ui->table->insertRow(row);
+    QTableWidgetItem *itm = new QTableWidgetItem(input +" "+ input2 +" "+ input3);
+    ui->table->setItem(row,0,itm);
+    vedomosti[row].setName(input);
+    vedomosti[row].setSurname(input2);
+    vedomosti[row].setFathername(input3);
+
     QTableWidgetItem *itm1 = new QTableWidgetItem(ui->comboBox->currentText());
     ui->table->setItem(row,1,itm1);
+    vedomosti[row].setSpeciality(ui->comboBox->currentText());
 
     QTableWidgetItem *itm2 = new QTableWidgetItem(QString::number(ui->doubleSpinBox->value()));
     ui->table->setItem(row,2,itm2);
+    vedomosti[row].setAttestat(ui->doubleSpinBox->value());
 
     QTableWidgetItem *itm3 = new QTableWidgetItem(QString::number(ui->spinBox->value()));
     ui->table->setItem(row,3,itm3);
+    vedomosti[row].setMath(ui->spinBox->value());
 
     QTableWidgetItem *itm4 = new QTableWidgetItem(QString::number(ui->spinBox_2->value()));
     ui->table->setItem(row,4,itm4);
+    vedomosti[row].setFiz(ui->spinBox_2->value());
 
     QTableWidgetItem *itm5 = new QTableWidgetItem(QString::number(ui->spinBox_3->value()));
     ui->table->setItem(row,5,itm5);
+    vedomosti[row].setRus(ui->spinBox_3->value());
 
     QTableWidgetItem *itm6 = new QTableWidgetItem(QString::number(10*ui->doubleSpinBox->value()+ui->spinBox->value()+ui->spinBox_2->value()+ui->spinBox_3->value()));
     ui->table->setItem(row,6,itm6);
@@ -271,5 +281,11 @@ void MainWindow::on_pushButton_poisk_2_clicked()
     {
         ui->table->setRowHidden(i, false);
     }
+}
+
+
+void MainWindow::on_pushButton_sort_clicked()
+{
+    ui->table->sortItems(6, Qt::DescendingOrder);
 }
 
