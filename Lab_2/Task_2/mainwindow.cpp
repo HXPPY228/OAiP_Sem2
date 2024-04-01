@@ -26,6 +26,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_add_clicked()
 {
+    ui->table->setSortingEnabled(false);
     int row;
     QString input = ui->lineEdit->text().trimmed();
     QString input2 = ui->lineEdit_2->text().trimmed();
@@ -82,6 +83,7 @@ void MainWindow::on_pushButton_add_clicked()
 
     QTableWidgetItem *itm6 = new QTableWidgetItem(QString::number(10*ui->doubleSpinBox->value()+ui->spinBox->value()+ui->spinBox_2->value()+ui->spinBox_3->value()));
     ui->table->setItem(row,6,itm6);
+    ui->table->setSortingEnabled(true);
 }
 
 
@@ -147,10 +149,21 @@ void MainWindow::on_pushButton_add_2_clicked()
         QTableWidgetItem *itm6 = new QTableWidgetItem(QString::number(srb+words[5].toInt()+words[6].toInt()+words[7].toInt()));
         ui->table->setItem(row,6,itm6);
 
+        vedomosti[row].setName(words[1]);
+        vedomosti[row].setSurname(words[0]);
+        vedomosti[row].setFathername(words[2]);
+        vedomosti[row].setSpeciality(ui->table->item(row,1)->text());
+        vedomosti[row].setAttestat(words[4].toDouble());
+        vedomosti[row].setMath(words[5].toInt());
+        vedomosti[row].setFiz(words[6].toInt());
+        vedomosti[row].setRus(words[7].toInt());
+        qDebug() << vedomosti[row].getSurname();
         ui->table->update();
+
     }
 
     file.close();
+
 }
 
 bool MainWindow::CheckFile(QString line){
@@ -287,5 +300,7 @@ void MainWindow::on_pushButton_poisk_2_clicked()
 void MainWindow::on_pushButton_sort_clicked()
 {
     ui->table->sortItems(6, Qt::DescendingOrder);
+    ui->table->sortItems(1, Qt::AscendingOrder);
 }
+
 
