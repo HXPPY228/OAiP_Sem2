@@ -159,7 +159,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Оценка по математике:</string>
+     <string>Экзамен по математике:</string>
     </property>
    </widget>
    <widget class="QSpinBox" name="spinBox">
@@ -197,7 +197,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Оценка по физике:</string>
+     <string>Экзамен по физике:</string>
     </property>
    </widget>
    <widget class="QSpinBox" name="spinBox_3">
@@ -225,7 +225,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Оценка по русскому:</string>
+     <string>Экзамен по русскому:</string>
     </property>
    </widget>
    <widget class="QTableWidget" name="table">
@@ -236,6 +236,9 @@
       <width>801</width>
       <height>361</height>
      </rect>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
     </property>
     <property name="sortingEnabled">
      <bool>true</bool>

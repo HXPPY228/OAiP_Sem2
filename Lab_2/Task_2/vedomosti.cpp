@@ -5,7 +5,7 @@ Vedomosti::Vedomosti(){
 }
 
 int Vedomosti::SummaBallov() {
-    return (attestat*10+math+fiz+rus) / 4;
+    return attestat*10+math+fiz+rus;
 }
 
 QString Vedomosti::getName() {

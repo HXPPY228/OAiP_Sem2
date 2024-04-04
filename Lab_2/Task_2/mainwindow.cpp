@@ -112,8 +112,6 @@ void MainWindow::on_pushButton_add_2_clicked()
 
         line=line.trimmed();
         QStringList words = line.split(' ');
-        QTableWidgetItem *itm = new QTableWidgetItem(words[0] +" "+ words[1] +" "+ words[2]);
-        ui->table->setItem(row,0,itm);
 
         QString spec;
         switch (words[3].toInt()) {
@@ -130,34 +128,39 @@ void MainWindow::on_pushButton_add_2_clicked()
             spec="ПОИТ";
             break;
         }
-        QTableWidgetItem *itm1 = new QTableWidgetItem(spec);
-        ui->table->setItem(row,1,itm1);
-
-        QTableWidgetItem *itm2 = new QTableWidgetItem(words[4]);
-        ui->table->setItem(row,2,itm2);
-
-        QTableWidgetItem *itm3 = new QTableWidgetItem(words[5]);
-        ui->table->setItem(row,3,itm3);
-
-        QTableWidgetItem *itm4 = new QTableWidgetItem(words[6]);
-        ui->table->setItem(row,4,itm4);
-
-        QTableWidgetItem *itm5 = new QTableWidgetItem(words[7]);
-        ui->table->setItem(row,5,itm5);
-
-        int srb = 10*words[4].toDouble();
-        QTableWidgetItem *itm6 = new QTableWidgetItem(QString::number(srb+words[5].toInt()+words[6].toInt()+words[7].toInt()));
-        ui->table->setItem(row,6,itm6);
 
         vedomosti[row].setName(words[1]);
         vedomosti[row].setSurname(words[0]);
         vedomosti[row].setFathername(words[2]);
-        vedomosti[row].setSpeciality(ui->table->item(row,1)->text());
+        vedomosti[row].setSpeciality(spec);
         vedomosti[row].setAttestat(words[4].toDouble());
         vedomosti[row].setMath(words[5].toInt());
         vedomosti[row].setFiz(words[6].toInt());
         vedomosti[row].setRus(words[7].toInt());
-        qDebug() << vedomosti[row].getSurname();
+
+        QTableWidgetItem *itm = new QTableWidgetItem(vedomosti[row].getSurname() +" "+ vedomosti[row].getName() +" "+ vedomosti[row].getFathername());
+        ui->table->setItem(row,0,itm);
+
+        QTableWidgetItem *itm1 = new QTableWidgetItem(vedomosti[row].getSpeciality());
+        ui->table->setItem(row,1,itm1);
+
+        QTableWidgetItem *itm2 = new QTableWidgetItem(QString::number(vedomosti[row].getAttestat()));
+        ui->table->setItem(row,2,itm2);
+
+        QTableWidgetItem *itm3 = new QTableWidgetItem(QString::number(vedomosti[row].getMath()));
+        ui->table->setItem(row,3,itm3);
+
+        QTableWidgetItem *itm4 = new QTableWidgetItem(QString::number(vedomosti[row].getFiz()));
+        ui->table->setItem(row,4,itm4);
+
+        QTableWidgetItem *itm5 = new QTableWidgetItem(QString::number(vedomosti[row].getRus()));
+        ui->table->setItem(row,5,itm5);
+
+        QTableWidgetItem *itm6 = new QTableWidgetItem(QString::number(vedomosti[row].SummaBallov()));
+        ui->table->setItem(row,6,itm6);
+
+
+
         ui->table->update();
 
     }
