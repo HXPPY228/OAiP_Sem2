@@ -14,6 +14,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+long long Akkerman(int m, int n)
+{
+    qDebug() << m << n;
+    if (m == 0) return n + 1;
+    if (m > 0 && n == 0) return Akkerman(m - 1, 1);
+    return Akkerman(m - 1, Akkerman(m, n - 1));
+}
+
 void MainWindow::on_pushButton_clicked()
 {
     int m = ui->spinBox->value();
@@ -24,8 +32,6 @@ void MainWindow::on_pushButton_clicked()
         QMessageBox::information(this, tr("Инфо"), tr("Введёные числа получат огромное число!"), QMessageBox::Ok | QMessageBox::NoButton);
         return;
     }
-
-    int output = Akkerman::Evaluate(m, n);
-    ui->label->setText(QString::number(output));
+    ui->label->setText(QString::number(Akkerman(m, n)));
 }
 
